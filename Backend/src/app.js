@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import DepartRoutes from "./routes/Department.routes.js"
 
 import authRoutes from "./routes/auth.routes.js";
 
@@ -19,5 +20,6 @@ app.use(morgan("dev"));
 
 // ── API Routes ────────────────────────────────────────────────────────────────
 app.use("/api/auth", authRoutes);
+app.use("/api/departments",DepartRoutes)
 
-export default app;
+export default app;
