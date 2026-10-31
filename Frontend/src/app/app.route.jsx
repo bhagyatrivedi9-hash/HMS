@@ -6,6 +6,7 @@ import TempDashboard from '../features/auth/components/TempDashboard';
 import DepartmentsPage from '../features/Appointments/pages/DepartmentsPage';
 import DoctorsPage from '../features/Appointments/pages/DoctorsPage';
 import BookingPage from '../features/Appointments/pages/BookingPage';
+import DoctorDashboard from '../features/Doctor/pages/DoctorDashboard';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,14 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/doctor',
+    element: <Navigate to="/doctor/dashboard" replace />,
+  },
+  {
+    path: '/doctor/dashboard',
+    element: <DoctorDashboard />,
   },
   {
     path: '/appointments',

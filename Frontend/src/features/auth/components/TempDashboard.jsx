@@ -52,10 +52,14 @@ const TempDashboard = () => {
   } = useAppointment();
 
   useEffect(() => {
+    if (user?.role === 'doctor') {
+      navigate('/doctor/dashboard', { replace: true });
+      return;
+    }
     if (user) {
       handleFetchMyAppointments();
     }
-  }, [user]);
+  }, [user, navigate]);
 
   async function onLogout() {
     await handleLogout();

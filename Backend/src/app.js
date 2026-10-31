@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import DepartRoutes from "./routes/Department.routes.js"
 import appointmentRoutes from "./routes/appointment.route.js"
 
+import doctorRoutes from "./routes/doctor.route.js";
+
 import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
@@ -23,5 +25,6 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRoutes);
 app.use("/api/departments",DepartRoutes)
 app.use("/api/appointments", appointmentRoutes);
+app.use("/api/doctor", doctorRoutes);
 
 export default app;

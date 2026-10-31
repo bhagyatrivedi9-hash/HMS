@@ -20,7 +20,11 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
       if (onLoginSuccess) {
         onLoginSuccess(res.user);
       } else {
-        navigate('/');
+        if (res.user?.role === 'doctor') {
+          navigate('/doctor/dashboard');
+        } else {
+          navigate('/');
+        }
       }
     }
   };

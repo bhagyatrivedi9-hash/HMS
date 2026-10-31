@@ -27,9 +27,15 @@ export function useAuth() {
       dispatch(clearMessages());
       dispatch(setLoading(true));
       const data = await login({ email, password });
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
       dispatch(setUser(data.user));
       dispatch(setSuccessMessage(data.message || "Login successful!"));
-      return { success: true, user: data.user };
+      return { success: true, user: data.user, token: data.token };
     } catch (err) {
       const msg = err.response?.data?.message || err.message || "Login failed. Check your credentials.";
       dispatch(setError(msg));
@@ -42,12 +48,17 @@ export function useAuth() {
   async function handleLogout() {
     try {
       dispatch(setLoading(true));
-      await logout();
+      await logout().catch(() => {});
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       dispatch(setUser(null));
       dispatch(clearMessages());
       return { success: true };
     } catch (err) {
       const msg = err.response?.data?.message || "Logout failed";
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      dispatch(setUser(null));
       dispatch(setError(msg));
       return { success: false, error: msg };
     } finally {
@@ -59,10 +70,14 @@ export function useAuth() {
     try {
       dispatch(setLoading(true));
       const data = await getMe();
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
       dispatch(setUser(data.user));
       return { success: true, user: data.user };
     } catch {
-      // Not logged in or expired session
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       dispatch(setUser(null));
       return { success: false };
     } finally {
