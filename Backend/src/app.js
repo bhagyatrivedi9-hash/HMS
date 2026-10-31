@@ -4,10 +4,10 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import DepartRoutes from "./routes/Department.routes.js"
 import appointmentRoutes from "./routes/appointment.route.js"
-
 import doctorRoutes from "./routes/doctor.route.js";
-
 import authRoutes from "./routes/auth.routes.js";
+import adminRoutes from "./routes/admin.route.js";
+import staffRoutes from "./routes/staff.route.js";
 
 const app = express();
 
@@ -26,5 +26,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/departments",DepartRoutes)
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/doctor", doctorRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/staff", staffRoutes);
 
 export default app;

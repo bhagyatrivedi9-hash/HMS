@@ -20,13 +20,24 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
       if (onLoginSuccess) {
         onLoginSuccess(res.user);
       } else {
-        if (res.user?.role === 'doctor') {
+        const role = res.user?.role;
+        if (role === 'admin') {
+          navigate('/admin/dashboard');
+        } else if (role === 'staff') {
+          navigate('/staff/dashboard');
+        } else if (role === 'doctor') {
           navigate('/doctor/dashboard');
         } else {
           navigate('/');
         }
       }
     }
+  };
+
+  const fillQuickCredentials = (demoEmail, demoPassword = 'Hospital@12345') => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
+    handleClearMessages();
   };
 
   return (
@@ -51,7 +62,7 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
         <div className="mb-6">
           <h2 className="text-lg font-bold text-slate-900">Sign In</h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Enter your credentials to access your account.
+            Enter your credentials to access your portal.
           </p>
         </div>
 
@@ -75,7 +86,7 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
           </div>
         )}
 
-        {/* Single Form for ALL users */}
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email field */}
           <div>
@@ -116,7 +127,7 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="Enter your password"
                 required
                 className="w-full h-11 pl-10 pr-10 bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-sky-500 focus:ring-3 focus:ring-sky-100 transition-all"
               />
@@ -160,8 +171,38 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
           </button>
         </form>
 
+        {/* Quick Demo Access Pills */}
+        <div className="mt-5 pt-4 border-t border-slate-100">
+          <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide text-center mb-2">
+            Demo Portal Credentials
+          </p>
+          <div className="grid grid-cols-3 gap-1.5">
+            <button
+              type="button"
+              onClick={() => fillQuickCredentials('A101_amit@carewell.hospital.ac.in')}
+              className="px-2 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-sky-700 text-[11px] font-semibold border border-sky-100 transition-colors text-center cursor-pointer"
+            >
+              Admin Demo
+            </button>
+            <button
+              type="button"
+              onClick={() => fillQuickCredentials('S101_meera@carewell.hospital.ac.in')}
+              className="px-2 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-sky-700 text-[11px] font-semibold border border-sky-100 transition-colors text-center cursor-pointer"
+            >
+              Staff Demo
+            </button>
+            <button
+              type="button"
+              onClick={() => fillQuickCredentials('D101_rahul@carewell.hospital.ac.in')}
+              className="px-2 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-sky-700 text-[11px] font-semibold border border-sky-100 transition-colors text-center cursor-pointer"
+            >
+              Doctor Demo
+            </button>
+          </div>
+        </div>
+
         {/* Link to Patient Register */}
-        <div className="mt-6 pt-5 border-t border-slate-100 text-center">
+        <div className="mt-5 pt-4 border-t border-slate-100 text-center">
           <p className="text-xs text-slate-500">
             Are you a new patient?{' '}
             {onNavigateToRegister ? (
@@ -184,7 +225,7 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
         </div>
       </div>
 
-      {/* Minimal Hospital Email Hint */}
+      {/* Hospital Email Hint */}
       <div className="mt-6 text-center max-w-md text-[11px] text-slate-400">
         <p>Hospital staff, doctors, and admins sign in using their institutional email.</p>
       </div>

@@ -56,6 +56,14 @@ const TempDashboard = () => {
       navigate('/doctor/dashboard', { replace: true });
       return;
     }
+    if (user?.role === 'admin') {
+      navigate('/admin/dashboard', { replace: true });
+      return;
+    }
+    if (user?.role === 'staff') {
+      navigate('/staff/dashboard', { replace: true });
+      return;
+    }
     if (user) {
       handleFetchMyAppointments();
     }

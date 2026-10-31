@@ -7,6 +7,8 @@ import DepartmentsPage from '../features/Appointments/pages/DepartmentsPage';
 import DoctorsPage from '../features/Appointments/pages/DoctorsPage';
 import BookingPage from '../features/Appointments/pages/BookingPage';
 import DoctorDashboard from '../features/Doctor/pages/DoctorDashboard';
+import AdminDashboard from '../features/Admin/pages/AdminDashboard';
+import StaffDashboard from '../features/staff/pages/StaffDashboard';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,22 @@ const router = createBrowserRouter([
   {
     path: '/doctor/dashboard',
     element: <DoctorDashboard />,
+  },
+  {
+    path: '/admin',
+    element: <Navigate to="/admin/dashboard" replace />,
+  },
+  {
+    path: '/admin/dashboard',
+    element: <AdminDashboard />,
+  },
+  {
+    path: '/staff',
+    element: <Navigate to="/staff/dashboard" replace />,
+  },
+  {
+    path: '/staff/dashboard',
+    element: <StaffDashboard />,
   },
   {
     path: '/appointments',

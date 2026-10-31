@@ -56,3 +56,36 @@ export const authorise = (...roles) => {
     next();
   };
 };
+
+export const authorisDoctor = (req, res, next) => {
+  const userRole = req.user.role;
+  if (userRole === "doctor") {
+    next();
+  } else {
+    return res.status(403).json({
+      message: "Access denied. Required role: doctor.",
+    });
+  }
+}
+
+export const authorisStaff = (req, res, next) => {
+  const userRole = req.user.role;
+  if (userRole === "staff") {
+    next();
+  } else {
+    return res.status(403).json({
+      message: "Access denied. Required role: staff.",
+    });
+  }
+}
+
+export const authorisAdmin = (req, res, next) => {
+  const userRole = req.user.role;
+  if (userRole === "admin") {
+    next();
+  } else {
+    return res.status(403).json({
+      message: "Access denied. Required role: admin.",
+    });
+  }
+}
