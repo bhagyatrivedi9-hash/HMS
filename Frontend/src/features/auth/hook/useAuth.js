@@ -61,7 +61,7 @@ export function useAuth() {
       const data = await getMe();
       dispatch(setUser(data.user));
       return { success: true, user: data.user };
-    } catch (err) {
+    } catch {
       // Not logged in or expired session
       dispatch(setUser(null));
       return { success: false };

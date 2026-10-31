@@ -42,13 +42,9 @@ export default function Register({ onNavigateToLogin }) {
     });
 
     if (res.success) {
-      setTimeout(() => {
-        if (onNavigateToLogin) {
-          onNavigateToLogin();
-        } else {
-          navigate('/login');
-        }
-      }, 1500);
+       setTimeout(() => {
+    navigate('/');
+  }, 1500);
     }
   };
 
